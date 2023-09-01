@@ -1,10 +1,12 @@
 import express from 'express';
 import { matchedData } from "express-validator";
+// import jsonParser from ('body-parser').json();
 import fs from 'fs';
 import path from 'path';
 import queue from '../jobs/enqueEmailJob.js'; // Import the queue handler
 import sendEmail from '../requests/sendEmailRequest.js'; // Import the request validator for sendEmail file
-const emailLogsDir = path.join('../logs/email');
+let emailLogsDir = path.resolve('./');
+emailLogsDir += "/logs/email"
 
 const router = express.Router();
 
@@ -35,6 +37,8 @@ router.get('/download-error-log/:filename', (req, res) => {
     const filename = req.params.filename;
     const filePath = path.join(emailLogsDir, filename);
 
+    console.log(filePath);
+
     res.download(filePath, (err) => {
         if (err) {
             console.error('Failed to download email log:', err);
@@ -58,18 +62,22 @@ router.get('/error-log/:filename', (req, res) => {
         // Assuming the content of the email log is in JSON format
         try {
             const logData = JSON.parse(content);
-            const formattedContent = `
-                <h1>Email Log</h1>
-                <p>Status: ${logData.status}</p>
-                <p>Recipient Email: ${logData.recipientEmail}</p>
-                <pre>Message: ${logData.message}</pre>
-                <p>Timestamp: ${logData.timestamp}</p>
-            `;
 
-            res.send(formattedContent);
-        } catch (jsonParseError) {
-            // Handle JSON parse error (content may not be in JSON format)
-            res.send(`<h1>Error Log</h1><pre>${content}</pre>`);
+            const logs = [];
+            for (const log of logData) {
+                logs.push({
+                    status: log.status,
+                    recipientEmail: log.recipientEmail + `i am here`,
+                    message: log.message,
+                    timestamp: log.timestamp,
+                });
+
+            }
+
+            res.json(logs);
+        } catch (error) {
+            console.log(error)
+            res.json(error);
         }
     });
 });

@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import requestCounter from './middleware/requestCounterMiddleware.js';
 
 dotenv.config();
 import route from './router/index.js'
@@ -11,7 +12,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true })) /**parse requests of content-type - application/x-www-form-urlencoded*/
 app.use(bodyParser.json()) /**parse requests of content-type - application/json*/
 
-
+app.use(requestCounter); // middleware for request counter
 app.get('/', (req, res) => {
     res.send('Welcome to The Email Microservice link');
 });
