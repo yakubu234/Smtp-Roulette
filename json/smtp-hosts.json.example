@@ -1,0 +1,17 @@
+[
+    {
+      "host": "smtp.example.com",
+      "port": 587,
+      "secure": false,
+      "username": "your_username",
+      "password": "your_password"
+    },
+    {
+      "host": "smtp.anotherhost.com",
+      "port": 465,
+      "secure": true,
+      "username": "another_username",
+      "password": "another_password"
+    }
+  ]
+  

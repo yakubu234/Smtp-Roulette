@@ -1,0 +1,33 @@
+{
+  "name": "personal-mail-function",
+  "version": "1.0.0",
+  "description": "this application sends smtp email based on a queue and retry system, also uses multiple hosts, hence checking which host is available to send a request ",
+  "main": "smtp.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "type": "module",
+    "stop-linux": "killall node"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "bull": "^4.11.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.1",
+    "moment": "^2.29.4",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.4.5",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.4",
+    "retry": "^0.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
